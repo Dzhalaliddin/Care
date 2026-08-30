@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🛥️ Расписание катеров Pana Sayahat</title>
+  <title>🛥️ Pana Sayahat - Boat Schedule</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -63,6 +63,40 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .language-selector {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .lang-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #4fc3f7;
+      background: rgba(255, 255, 255, 0.8);
+      color: #111111;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-btn:hover {
+      background: rgba(79, 195, 247, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .lang-btn.active {
+      background: #4fc3f7;
+      color: white;
+      box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
     }
 
     .header {
@@ -720,6 +754,12 @@
 
     @media (max-width: 768px) {
       .card { padding: 1.2rem; }
+      .language-selector {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-bottom: 1rem;
+      }
       .info-banner { 
         flex-direction: column; 
         gap: 0.5rem;
@@ -750,6 +790,12 @@
 </head>
 <body>
 <div class="card">
+  <div class="language-selector">
+    <button class="lang-btn active" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="kz">KZ</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
   <div class="header">
     <div class="logo-pana">
       <img src="https://scontent.cdninstagram.com/v/t51.2885-19/278411269_349161700368229_804438346788709657_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=UwvYQurLtk4Q7kNvwHDxHst&_nc_oc=AdrWN75GQXmH6F1QaCvsoQ0yWv1M8VUj87lYQVRaPczDjTNseWGUQmskcTZP9lbiYmk&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_ss=7b689&oh=00_AQKyEKi7fVS8BxZnCJ76YdvXTmr4h2z1zkX5Eew_xLWvMA&oe=6A99F57D" 
@@ -760,31 +806,31 @@
 
   <div class="info-banner">
     <div class="info-item">
-      <span>🚏</span>
-      <span>Посадка: <span class="highlight">Айнаколь</span></span>
+      <span>⚓</span>
+      <span class="i18n" data-key="ainakol">Айнаколь</span>
     </div>
     <div class="info-item">
-      <span>🏝️</span>
-      <span>Высадка: <span class="highlight">Бөлектау</span></span>
+      <span>⛰️</span>
+      <span class="i18n" data-key="bolektau">Бөлектау</span>
     </div>
     <div class="info-item">
       <span>⏱️</span>
-      <span>В пути: <span class="highlight">45 мин</span></span>
+      <span class="i18n" data-key="travel_time">В пути: <span class="highlight">45 мин</span></span>
     </div>
     <div class="info-item">
       <span>⏸️</span>
-      <span>Остановка: <span class="highlight">15 мин</span></span>
+      <span class="i18n" data-key="stop_time">Остановка: <span class="highlight">15 мин</span></span>
     </div>
     <div class="weather-info" id="weatherInfo">
       <span class="weather-icon" id="weatherIcon">🌤️</span>
       <span class="weather-temp" id="weatherTemp">--°C</span>
-      <span class="weather-desc" id="weatherDesc">Загрузка...</span>
+      <span class="weather-desc i18n" id="weatherDesc" data-key="loading">Загрузка...</span>
     </div>
   </div>
 
   <div class="route-header">
-    <div>🚏 Маршрут <strong>Айнаколь</strong> → <strong>Бөлектау</strong> → <strong>Айнаколь</strong></div>
-    <span>🔄 ежедневно · 10 рейсов</span>
+    <div class="i18n" data-key="route_title">🚏 Маршрут <strong>Айнаколь</strong> → <strong>Бөлектау</strong> → <strong>Айнаколь</strong></div>
+    <span class="i18n" data-key="daily">🔄 ежедневно · 10 рейсов</span>
   </div>
 
   <div class="route-animation">
@@ -795,15 +841,13 @@
       
       <div class="stop-point left" id="stopAinakol">
         <span class="icon">⚓</span>
-        <span class="label">Айнаколь</span>
-        <span class="sub-label">🚏 посадка</span>
+        <span class="label i18n" data-key="ainakol">Айнаколь</span>
         <span class="time-label" id="ainakolTime">--:--</span>
       </div>
       
       <div class="stop-point right" id="stopBolektau">
-        <span class="icon">🏝️</span>
-        <span class="label">Бөлектау</span>
-        <span class="sub-label">🚶 высадка</span>
+        <span class="icon">⛰️</span>
+        <span class="label i18n" data-key="bolektau">Бөлектау</span>
         <span class="time-label" id="bolektauTime">--:--</span>
       </div>
       
@@ -811,7 +855,7 @@
     </div>
     
     <div class="route-info">
-      <span id="routeStatus">🕐 Ожидание отправления</span>
+      <span id="routeStatus" class="i18n" data-key="waiting">🕐 Ожидание отправления</span>
     </div>
   </div>
 
@@ -819,12 +863,12 @@
     <table>
       <thead>
         <tr>
-          <th>№</th>
-          <th>Отправление<br><span class="small-note">Айнаколь</span></th>
-          <th>Прибытие<br><span class="small-note">Бөлектау</span></th>
-          <th>⏸️ Остановка<br><span class="small-note">15 мин</span></th>
-          <th>Отправление<br><span class="small-note">Бөлектау</span></th>
-          <th>Прибытие<br><span class="small-note">Айнаколь</span></th>
+          <th class="i18n" data-key="number">№</th>
+          <th><span class="i18n" data-key="departure">Отправление</span><br><span class="small-note i18n" data-key="ainakol">Айнаколь</span></th>
+          <th><span class="i18n" data-key="arrival">Прибытие</span><br><span class="small-note i18n" data-key="bolektau">Бөлектау</span></th>
+          <th><span class="i18n" data-key="stop">⏸️ Остановка</span><br><span class="small-note i18n" data-key="minutes_15">15 мин</span></th>
+          <th><span class="i18n" data-key="departure">Отправление</span><br><span class="small-note i18n" data-key="bolektau">Бөлектау</span></th>
+          <th><span class="i18n" data-key="arrival">Прибытие</span><br><span class="small-note i18n" data-key="ainakol">Айнаколь</span></th>
         </tr>
       </thead>
       <tbody id="schedule-body">
@@ -832,7 +876,7 @@
     </table>
   </div>
   
-  <div class="footer-note">
+  <div class="footer-note i18n" data-key="footer">
     ⏱️ время в пути ≈ 45 мин · остановка 15 мин · общее время 105 мин
   </div>
 </div>
@@ -844,6 +888,111 @@
     const WEATHER_INTERVAL = 3600000;
     const LINE_LEFT_MARGIN = 100;
     const LINE_RIGHT_MARGIN = 100;
+
+    const translations = {
+      ru: {
+        ainakol: 'Айнаколь',
+        bolektau: 'Бөлектау',
+        travel_time: 'В пути: <span class="highlight">45 мин</span>',
+        stop_time: 'Остановка: <span class="highlight">15 мин</span>',
+        loading: 'Загрузка...',
+        route_title: '🚏 Маршрут <strong>Айнаколь</strong> → <strong>Бөлектау</strong> → <strong>Айнаколь</strong>',
+        daily: '🔄 ежедневно · 10 рейсов',
+        waiting: '🕐 Ожидание отправления',
+        number: '№',
+        departure: 'Отправление',
+        arrival: 'Прибытие',
+        stop: '⏸️ Остановка',
+        minutes_15: '15 мин',
+        footer: '⏱️ время в пути ≈ 45 мин · остановка 15 мин · общее время 105 мин',
+        no_active: '🕐 Нет активных рейсов',
+        ride: 'Рейс',
+        to_bolektau: 'Айнаколь → Бөлектау',
+        to_ainakol: 'Бөлектау → Айнаколь',
+        stopped: 'Остановка',
+        min: 'мин',
+        updated: 'Обновлено',
+        weather_clear: 'Ясно',
+        weather_sunny: 'Солнечно',
+        weather_clouds: 'Облачно',
+        weather_overcast: 'Пасмурно',
+        weather_rain: 'Дождь',
+        weather_drizzle: 'Морось',
+        weather_snow: 'Снег',
+        weather_fog: 'Туман',
+        weather_mist: 'Дымка',
+        weather_thunderstorm: 'Гроза'
+      },
+      kz: {
+        ainakol: 'Айнакөл',
+        bolektau: 'Бөлектау',
+        travel_time: 'Жолда: <span class="highlight">45 мин</span>',
+        stop_time: 'Аялдама: <span class="highlight">15 мин</span>',
+        loading: 'Жүктелуде...',
+        route_title: '🚏 Маршрут <strong>Айнакөл</strong> → <strong>Бөлектау</strong> → <strong>Айнакөл</strong>',
+        daily: '🔄 күн сайын · 10 рейс',
+        waiting: '🕐 Жөнелтуді күту',
+        number: '№',
+        departure: 'Жөнелту',
+        arrival: 'Келу',
+        stop: '⏸️ Аялдама',
+        minutes_15: '15 мин',
+        footer: '⏱️ жол уақыты ≈ 45 мин · аялдама 15 мин · жалпы уақыт 105 мин',
+        no_active: '🕐 Белсенді рейстер жоқ',
+        ride: 'Рейс',
+        to_bolektau: 'Айнакөл → Бөлектау',
+        to_ainakol: 'Бөлектау → Айнакөл',
+        stopped: 'Аялдама',
+        min: 'мин',
+        updated: 'Жаңартылды',
+        weather_clear: 'Ашық',
+        weather_sunny: 'Күн ашық',
+        weather_clouds: 'Бұлтты',
+        weather_overcast: 'Бұлтты',
+        weather_rain: 'Жаңбыр',
+        weather_drizzle: 'Сіркіреме',
+        weather_snow: 'Қар',
+        weather_fog: 'Тұман',
+        weather_mist: 'Тұман',
+        weather_thunderstorm: 'Найзағай'
+      },
+      en: {
+        ainakol: 'Ainakol',
+        bolektau: 'Bolektau',
+        travel_time: 'Travel time: <span class="highlight">45 min</span>',
+        stop_time: 'Stop: <span class="highlight">15 min</span>',
+        loading: 'Loading...',
+        route_title: '🚏 Route <strong>Ainakol</strong> → <strong>Bolektau</strong> → <strong>Ainakol</strong>',
+        daily: '🔄 daily · 10 trips',
+        waiting: '🕐 Waiting for departure',
+        number: 'No.',
+        departure: 'Departure',
+        arrival: 'Arrival',
+        stop: '⏸️ Stop',
+        minutes_15: '15 min',
+        footer: '⏱️ travel time ≈ 45 min · stop 15 min · total time 105 min',
+        no_active: '🕐 No active trips',
+        ride: 'Trip',
+        to_bolektau: 'Ainakol → Bolektau',
+        to_ainakol: 'Bolektau → Ainakol',
+        stopped: 'Stop',
+        min: 'min',
+        updated: 'Updated',
+        weather_clear: 'Clear',
+        weather_sunny: 'Sunny',
+        weather_clouds: 'Cloudy',
+        weather_overcast: 'Overcast',
+        weather_rain: 'Rain',
+        weather_drizzle: 'Drizzle',
+        weather_snow: 'Snow',
+        weather_fog: 'Fog',
+        weather_mist: 'Mist',
+        weather_thunderstorm: 'Thunderstorm'
+      }
+    };
+
+    let currentLang = 'ru';
+    let currentWeather = { condition: 'clouds', temp: 18 };
 
     const DOM = {
       tbody: document.getElementById('schedule-body'),
@@ -872,8 +1021,6 @@
       { id: 10, depA: '13:30', arrB: '14:15', depB: '14:30', arrA: '15:15' }
     ];
 
-    let currentWeather = { condition: 'clouds', temp: 18 };
-
     function timeToMinutes(timeStr) {
       const [h, m] = timeStr.split(':').map(Number);
       return h * 60 + m;
@@ -884,31 +1031,52 @@
       return now.getHours() * 60 + now.getMinutes();
     }
 
-    // Получаем текущий активный рейс (один корабль на полном маршруте)
     function getCurrentRide(currentMin) {
       for (let i = 0; i < schedule.length; i++) {
         const item = schedule[i];
         const depA = timeToMinutes(item.depA);
         const arrA = timeToMinutes(item.arrA);
         
-        // Корабль находится в пути от отправления до конечного прибытия
         if (currentMin >= depA && currentMin < arrA) {
           const arrB = timeToMinutes(item.arrB);
           const depB = timeToMinutes(item.depB);
           
           let phase;
           if (currentMin < arrB) {
-            phase = 'to-bolektau'; // Идем вперед
+            phase = 'to-bolektau';
           } else if (currentMin < depB) {
-            phase = 'stopped'; // Остановка в Бөлектау
+            phase = 'stopped';
           } else {
-            phase = 'to-ainakol'; // Возвращаемся обратно
+            phase = 'to-ainakol';
           }
           
           return { index: i, phase, ride: item };
         }
       }
       return null;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      
+      // Обновляем кнопки
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      
+      // Обновляем все элементы с переводами
+      document.querySelectorAll('.i18n').forEach(el => {
+        const key = el.dataset.key;
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      
+      // Обновляем погоду
+      updateWeatherUI();
+      
+      // Обновляем расписание
+      updateSchedule();
     }
 
     function createWeatherAnimation(condition) {
@@ -1037,22 +1205,20 @@
         rain: '🌧️', drizzle: '🌦️', snow: '❄️', fog: '🌫️',
         mist: '🌫️', thunderstorm: '⛈️'
       };
-      const desc = {
-        clear: 'Ясно', sunny: 'Солнечно', clouds: 'Облачно', overcast: 'Пасмурно',
-        rain: 'Дождь', drizzle: 'Морось', snow: 'Снег', fog: 'Туман',
-        mist: 'Дымка', thunderstorm: 'Гроза'
-      };
+      
+      const weatherKey = `weather_${currentWeather.condition}`;
+      const weatherDesc = translations[currentLang][weatherKey] || currentWeather.condition;
       
       DOM.weatherIcon.textContent = icons[currentWeather.condition] || '🌤️';
       DOM.weatherTemp.textContent = `${currentWeather.temp}°C`;
-      DOM.weatherDesc.textContent = desc[currentWeather.condition] || 'Ясно';
+      DOM.weatherDesc.textContent = weatherDesc;
     }
 
     function updateRouteAnimation(currentRide) {
       const currentMin = getCurrentMinutes();
       
       if (!currentRide) {
-        DOM.routeStatus.textContent = '🕐 Нет активных рейсов';
+        DOM.routeStatus.textContent = translations[currentLang].no_active;
         DOM.progressTrack.style.width = '0%';
         DOM.ainakolTime.textContent = '--:--';
         DOM.bolektauTime.textContent = '--:--';
@@ -1076,6 +1242,7 @@
       let posX;
       let boatClass;
       let statusText;
+      const t = translations[currentLang];
       
       if (phase === 'to-bolektau') {
         const depA = timeToMinutes(ride.depA);
@@ -1083,7 +1250,7 @@
         const boatPosition = elapsed / TRAVEL_TIME;
         posX = leftBoundary + (boatPosition * totalTravelWidth);
         boatClass = 'boat-on-route forward';
-        statusText = `🛥️ Рейс #${ride.id}: Айнаколь → Бөлектау (${Math.round(elapsed)}/${TRAVEL_TIME} мин)`;
+        statusText = `🛥️ ${t.ride} #${ride.id}: ${t.to_bolektau} (${Math.round(elapsed)}/${TRAVEL_TIME} ${t.min})`;
         
         const progressWidth = (elapsed / TRAVEL_TIME) * 100;
         DOM.progressTrack.style.width = progressWidth + '%';
@@ -1093,7 +1260,7 @@
         const elapsed = currentMin - arrB;
         posX = rightBoundary;
         boatClass = 'boat-on-route forward';
-        statusText = `⏸️ Рейс #${ride.id}: Остановка (${Math.round(elapsed)}/${STOP_TIME} мин)`;
+        statusText = `⏸️ ${t.ride} #${ride.id}: ${t.stopped} (${Math.round(elapsed)}/${STOP_TIME} ${t.min})`;
         
         DOM.progressTrack.style.width = '100%';
         DOM.progressTrack.className = 'progress-track';
@@ -1103,7 +1270,7 @@
         const boatPosition = elapsed / TRAVEL_TIME;
         posX = rightBoundary - (boatPosition * totalTravelWidth);
         boatClass = 'boat-on-route return';
-        statusText = `🔄 Рейс #${ride.id}: Бөлектау → Айнаколь (${Math.round(elapsed)}/${TRAVEL_TIME} мин)`;
+        statusText = `🔄 ${t.ride} #${ride.id}: ${t.to_ainakol} (${Math.round(elapsed)}/${TRAVEL_TIME} ${t.min})`;
         
         DOM.progressTrack.style.width = '100%';
         DOM.progressTrack.className = 'progress-track return';
@@ -1111,7 +1278,7 @@
       
       boatDiv.className = boatClass;
       boatDiv.style.left = posX + 'px';
-      boatDiv.innerHTML = `<span class="boat-icon">🛥️</span><span class="boat-label">Рейс #${ride.id}</span>`;
+      boatDiv.innerHTML = `<span class="boat-icon">🛥️</span><span class="boat-label">${t.ride} #${ride.id}</span>`;
       DOM.boatsContainer.appendChild(boatDiv);
       
       DOM.routeStatus.textContent = statusText;
@@ -1130,7 +1297,7 @@
           <td style="font-weight:700">${item.id}</td>
           <td class="${isCurrent && (phase === 'to-bolektau' || phase === 'stopped') ? 'departure-ainakol' : ''}">${item.depA}</td>
           <td class="${isCurrent && (phase === 'to-bolektau' || phase === 'stopped') ? 'arrival-bolektau' : ''}">${item.arrB}</td>
-          <td><span class="highlight-stop">⏸️ 15 мин</span></td>
+          <td><span class="highlight-stop">⏸️ ${translations[currentLang].minutes_15}</span></td>
           <td class="${isCurrent && phase === 'to-ainakol' ? 'departure-bolektau' : ''}">${item.depB}</td>
           <td class="${isCurrent && phase === 'to-ainakol' ? 'arrival-ainakol' : ''}">${item.arrA}</td>
         `;
@@ -1145,7 +1312,7 @@
 
     function updateLastUpdatedTime() {
       const now = new Date();
-      const timeString = now.toLocaleTimeString('ru-RU', { 
+      const timeString = now.toLocaleTimeString(currentLang === 'ru' ? 'ru-RU' : currentLang === 'kz' ? 'kk-KZ' : 'en-US', { 
         hour: '2-digit', 
         minute: '2-digit' 
       });
@@ -1156,7 +1323,7 @@
         lastUpdate.className = 'last-update';
         document.querySelector('.card').appendChild(lastUpdate);
       }
-      lastUpdate.textContent = `Обновлено: ${timeString}`;
+      lastUpdate.textContent = `${translations[currentLang].updated}: ${timeString}`;
     }
 
     function updateSchedule() {
@@ -1168,6 +1335,13 @@
     }
 
     function init() {
+      // Обработчики для кнопок языка
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setLanguage(btn.dataset.lang);
+        });
+      });
+      
       fetchWeather();
       updateSchedule();
       setInterval(updateSchedule, 60000);
