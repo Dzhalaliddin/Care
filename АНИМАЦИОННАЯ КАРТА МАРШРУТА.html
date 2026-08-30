@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛥️ Расписание катеров Pana Sayahat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Inter', sans-serif;
+      background-image: url('https://travel-picture.ru/wp-content/uploads/2019/07/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%BE%D0%B5-870x400.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+      z-index: -1;
+    }
+
+    .card {
+      max-width: 1280px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+      padding: 2rem 2rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: cardAppear 0.6s ease-out;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .logo-pana {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .logo-pana img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #4fc3f7;
+      box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .logo-pana img:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .logo-pana .logo-text {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #111111, #4fc3f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-pana .logo-text span {
+      background: linear-gradient(135deg, #4fc3f7, #00e5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+    }
+
+    .info-banner {
+      background: rgba(17, 17, 17, 0.05);
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 4px solid #4fc3f7;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #111111;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .info-item:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .highlight {
+      font-weight: 700;
+      background: rgba(79, 195, 247, 0.3);
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .weather-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(17, 17, 17, 0.05);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+      min-width: 180px;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .weather-info:hover {
+      background: rgba(17, 17, 17, 0.1);
+      transform: scale(1.05);
+    }
+
+    .weather-info::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      100% { left: 100%; }
+    }
+
+    .weather-icon {
+      font-size: 1.8rem;
+      position: relative;
+      z-index: 2;
+      animation: iconPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .weather-temp {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #111111;
+      position: relative;
+      z-index: 2;
+    }
+
+    .weather-desc {
+      font-size: 0.75rem;
+      color: #555555;
+      position: relative;
+      z-index: 2;
+    }
+
+    .anim-rain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .anim-rain .raindrop {
+      position: absolute;
+      width: 2px;
+      height: 12px;
+      background: linear-gradient(180deg, #4fc3f7, rgba(79, 195, 247, 0.2));
+      border-radius: 2px;
+      animation: rainDrop 0.8s linear infinite;
+    }
+
+    @keyframes rainDrop {
+      0% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(50px); opacity: 0; }
+    }
+
+    .anim-snow .snowflake {
+      position: absolute;
+      animation: snowFall 3s linear infinite;
+    }
+
+    @keyframes snowFall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(50px) rotate(360deg); opacity: 0; }
+    }
+
+    .anim-sun .sun-circle {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background: radial-gradient(circle, #FFD700, #FFA500);
+      border-radius: 50%;
+      box-shadow: 0 0 30px #FFD700, 0 0 60px #FFA500;
+      animation: sunGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes sunGlow {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px #FFD700, 0 0 60px #FFA500; }
+      50% { transform: scale(1.2); box-shadow: 0 0 50px #FFD700, 0 0 80px #FFA500; }
+    }
+
+    .anim-cloud .cloud-puff {
+      position: absolute;
+      background: white;
+      border-radius: 50px;
+      opacity: 0.8;
+      animation: cloudMove 4s linear infinite;
+    }
+
+    @keyframes cloudMove {
+      0% { transform: translateX(-40px); }
+      100% { transform: translateX(100px); }
+    }
+
+    .anim-fog .fog-puff {
+      position: absolute;
+      background: rgba(200, 200, 200, 0.4);
+      border-radius: 50px;
+      filter: blur(15px);
+      animation: fogDrift 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes fogDrift {
+      0% { transform: translateX(-20px); opacity: 0.3; }
+      100% { transform: translateX(60px); opacity: 0.6; }
+    }
+
+    .anim-thunder .bolt {
+      position: absolute;
+      width: 3px;
+      height: 30px;
+      background: linear-gradient(180deg, #fff, #FFD700);
+      animation: boltFlash 2s infinite;
+      opacity: 0;
+    }
+
+    @keyframes boltFlash {
+      0%, 90%, 95%, 100% { opacity: 0; }
+      91%, 92%, 93%, 94% { opacity: 1; }
+    }
+
+    .route-header {
+      font-weight: 500;
+      color: #555555;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(17, 17, 17, 0.1);
+      padding-bottom: 0.75rem;
+      position: relative;
+      animation: slideUp 0.8s ease-out 0.3s both;
+    }
+
+    .route-header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #4fc3f7, #00e5ff, #4fc3f7);
+      animation: moveGradient 3s linear infinite;
+      background-size: 200% 100%;
+    }
+
+    @keyframes moveGradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .route-header span {
+      background: rgba(17, 17, 17, 0.05);
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .route-header span:hover {
+      background: rgba(79, 195, 247, 0.2);
+      transform: scale(1.05);
+    }
+
+    .route-animation {
+      background: linear-gradient(135deg, rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.5));
+      border-radius: 24px;
+      padding: 2rem 1.5rem 1.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+      min-height: 180px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    .route-container {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+    }
+
+    .route-line-bg {
+      position: absolute;
+      left: 100px;
+      right: 100px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+    }
+
+    .progress-track {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4fc3f7, #00e5ff);
+      border-radius: 10px;
+      box-shadow: 0 0 16px #00e5ff88;
+      transition: width 60s linear;
+      position: relative;
+    }
+
+    .progress-track::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -3px;
+      width: 10px;
+      height: 10px;
+      background: #00e5ff;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #00e5ff;
+    }
+
+    .progress-track.return {
+      background: linear-gradient(90deg, #ffb74d, #ff9800);
+      box-shadow: 0 0 16px #ff980088;
+    }
+
+    .progress-track.return::after {
+      background: #ff9800;
+      box-shadow: 0 0 20px #ff9800;
+    }
+
+    .stop-point {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      z-index: 5;
+    }
+
+    .stop-point .icon {
+      font-size: 2.5rem;
+      filter: drop-shadow(0 0 10px rgba(79, 195, 247, 0.6));
+    }
+
+    .stop-point .label {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #ffffff;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .stop-point:hover .label {
+      background: rgba(79, 195, 247, 0.3);
+      transform: scale(1.1);
+    }
+
+    .stop-point .sub-label {
+      font-size: 0.55rem;
+      color: #cccccc;
+    }
+
+    .stop-point .time-label {
+      font-size: 0.65rem;
+      color: #cccccc;
+      font-weight: 600;
+    }
+
+    .stop-point.left { 
+      left: 10px;
+    }
+    .stop-point.right { 
+      right: 10px;
+    }
+
+    .boat-on-route {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+      transition: left 60s linear;
+    }
+
+    .boat-on-route.forward {
+      animation: boatFloatForward 3s ease-in-out infinite;
+    }
+
+    .boat-on-route.return {
+      animation: boatFloatReturn 3s ease-in-out infinite;
+    }
+
+    @keyframes boatFloatForward {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      25% { transform: translateY(-55%) translateX(5px); }
+      75% { transform: translateY(-45%) translateX(-5px); }
+    }
+
+    @keyframes boatFloatReturn {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      25% { transform: translateY(-55%) translateX(-5px); }
+      75% { transform: translateY(-45%) translateX(5px); }
+    }
+
+    .boat-icon {
+      font-size: 2.2rem;
+      animation: boatBob 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .boat-on-route.return .boat-icon {
+      transform: scaleX(-1);
+      animation: boatBobReturn 3s ease-in-out infinite;
+    }
+
+    @keyframes boatBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes boatBobReturn {
+      0%, 100% { transform: translateY(0) scaleX(-1); }
+      50% { transform: translateY(-8px) scaleX(-1); }
+    }
+
+    .boat-label {
+      font-size: 0.6rem;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 0.1rem 0.5rem;
+      border-radius: 10px;
+      margin-top: 2px;
+      font-weight: 600;
+      backdrop-filter: blur(5px);
+    }
+
+    .route-info {
+      text-align: center;
+      color: #cccccc;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .route-info span {
+      background: rgba(0,0,0,0.4);
+      padding: 0.2rem 1.2rem;
+      border-radius: 30px;
+      backdrop-filter: blur(5px);
+      animation: pulse 2s infinite;
+    }
+
+    .table-wrapper {
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.25rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      animation: slideUp 0.8s ease-out 0.5s both;
+    }
+
+    .table-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: rgba(79, 195, 247, 0.5);
+      border-radius: 10px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb:hover {
+      background: rgba(79, 195, 247, 0.7);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      border-radius: 24px;
+      overflow: hidden;
+      min-width: 600px;
+    }
+
+    thead {
+      background: rgba(17, 17, 17, 0.8);
+      color: #fbf9f5;
+      font-weight: 600;
+    }
+
+    thead th {
+      padding: 1rem 0.8rem;
+      text-align: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      opacity: 0.9;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    thead th:last-child {
+      border-right: none;
+    }
+
+    tbody tr {
+      background: transparent;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    tbody td {
+      padding: 0.9rem 0.6rem;
+      text-align: center;
+      font-weight: 500;
+      color: #1a2a3a;
+      border-right: 1px solid rgba(17, 17, 17, 0.05);
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+
+    tbody td:last-child {
+      border-right: none;
+    }
+
+    tbody td.departure-ainakol {
+      background: rgba(79, 195, 247, 0.6) !important;
+      border-radius: 8px;
+      font-weight: 700;
+      animation: currentRide 2s ease-in-out infinite;
+    }
+
+    tbody td.arrival-bolektau {
+      background: rgba(79, 195, 247, 0.6) !important;
+      border-radius: 8px;
+      font-weight: 700;
+      animation: currentRide 2s ease-in-out infinite;
+    }
+
+    tbody td.departure-bolektau {
+      background: rgba(255, 183, 77, 0.6) !important;
+      border-radius: 8px;
+      font-weight: 700;
+      animation: currentRide 2s ease-in-out infinite;
+    }
+
+    tbody td.arrival-ainakol {
+      background: rgba(255, 183, 77, 0.6) !important;
+      border-radius: 8px;
+      font-weight: 700;
+      animation: currentRide 2s ease-in-out infinite;
+    }
+
+    @keyframes currentRide {
+      0%, 100% { box-shadow: 0 0 5px rgba(79, 195, 247, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(79, 195, 247, 0.8); }
+    }
+
+    .highlight-stop {
+      background: rgba(17, 17, 17, 0.06);
+      font-weight: 600;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .highlight-stop:hover {
+      background: rgba(17, 17, 17, 0.1);
+      transform: scale(1.1);
+    }
+
+    .small-note {
+      font-size: 0.7rem;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .footer-note {
+      margin-top: 1.5rem;
+      text-align: right;
+      color: #555555;
+      font-size: 0.8rem;
+      opacity: 0.6;
+      animation: slideUp 0.8s ease-out 0.6s both;
+    }
+
+    .last-update {
+      position: absolute;
+      bottom: 1rem;
+      left: 2rem;
+      font-size: 0.7rem;
+      color: #555555;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      .card { padding: 1.2rem; }
+      .info-banner { 
+        flex-direction: column; 
+        gap: 0.5rem;
+        align-items: stretch;
+      }
+      .info-item {
+        justify-content: center;
+      }
+      .weather-info {
+        min-width: unset;
+        width: 100%;
+      }
+      .stop-point .label { font-size: 0.55rem; }
+      .stop-point .icon { font-size: 1.8rem; }
+      table { font-size: 0.7rem; }
+      thead th { padding: 0.5rem 0.2rem; font-size: 0.6rem; }
+      tbody td { padding: 0.5rem 0.2rem; }
+      .route-line-bg { 
+        left: 70px; 
+        right: 70px; 
+      }
+      .stop-point.left { left: 5px; }
+      .stop-point.right { right: 5px; }
+      .logo-pana .logo-text { font-size: 1.3rem; }
+      .logo-pana img { width: 45px; height: 45px; }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="header">
+    <div class="logo-pana">
+      <img src="https://scontent.cdninstagram.com/v/t51.2885-19/278411269_349161700368229_804438346788709657_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=100&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=UwvYQurLtk4Q7kNvwHDxHst&_nc_oc=AdrWN75GQXmH6F1QaCvsoQ0yWv1M8VUj87lYQVRaPczDjTNseWGUQmskcTZP9lbiYmk&_nc_zt=24&_nc_ht=scontent.cdninstagram.com&_nc_ss=7b689&oh=00_AQKyEKi7fVS8BxZnCJ76YdvXTmr4h2z1zkX5Eew_xLWvMA&oe=6A99F57D" 
+           alt="Pana Sayahat Logo">
+      <div class="logo-text">Pana <span>Sayahat</span></div>
+    </div>
+  </div>
+
+  <div class="info-banner">
+    <div class="info-item">
+      <span>🚏</span>
+      <span>Посадка: <span class="highlight">Айнаколь</span></span>
+    </div>
+    <div class="info-item">
+      <span>🏝️</span>
+      <span>Высадка: <span class="highlight">Бөлектау</span></span>
+    </div>
+    <div class="info-item">
+      <span>⏱️</span>
+      <span>В пути: <span class="highlight">45 мин</span></span>
+    </div>
+    <div class="info-item">
+      <span>⏸️</span>
+      <span>Остановка: <span class="highlight">15 мин</span></span>
+    </div>
+    <div class="weather-info" id="weatherInfo">
+      <span class="weather-icon" id="weatherIcon">🌤️</span>
+      <span class="weather-temp" id="weatherTemp">--°C</span>
+      <span class="weather-desc" id="weatherDesc">Загрузка...</span>
+    </div>
+  </div>
+
+  <div class="route-header">
+    <div>🚏 Маршрут <strong>Айнаколь</strong> → <strong>Бөлектау</strong> → <strong>Айнаколь</strong></div>
+    <span>🔄 ежедневно · 10 рейсов</span>
+  </div>
+
+  <div class="route-animation">
+    <div class="route-container" id="routeContainer">
+      <div class="route-line-bg">
+        <div class="progress-track" id="progressTrack"></div>
+      </div>
+      
+      <div class="stop-point left" id="stopAinakol">
+        <span class="icon">⚓</span>
+        <span class="label">Айнаколь</span>
+        <span class="sub-label">🚏 посадка</span>
+        <span class="time-label" id="ainakolTime">--:--</span>
+      </div>
+      
+      <div class="stop-point right" id="stopBolektau">
+        <span class="icon">🏝️</span>
+        <span class="label">Бөлектау</span>
+        <span class="sub-label">🚶 высадка</span>
+        <span class="time-label" id="bolektauTime">--:--</span>
+      </div>
+      
+      <div id="boatsContainer"></div>
+    </div>
+    
+    <div class="route-info">
+      <span id="routeStatus">🕐 Ожидание отправления</span>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Отправление<br><span class="small-note">Айнаколь</span></th>
+          <th>Прибытие<br><span class="small-note">Бөлектау</span></th>
+          <th>⏸️ Остановка<br><span class="small-note">15 мин</span></th>
+          <th>Отправление<br><span class="small-note">Бөлектау</span></th>
+          <th>Прибытие<br><span class="small-note">Айнаколь</span></th>
+        </tr>
+      </thead>
+      <tbody id="schedule-body">
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="footer-note">
+    ⏱️ время в пути ≈ 45 мин · остановка 15 мин · общее время 105 мин
+  </div>
+</div>
+
+<script>
+  (function() {
+    const TRAVEL_TIME = 45;
+    const STOP_TIME = 15;
+    const WEATHER_INTERVAL = 3600000;
+    const LINE_LEFT_MARGIN = 100;
+    const LINE_RIGHT_MARGIN = 100;
+
+    const DOM = {
+      tbody: document.getElementById('schedule-body'),
+      routeStatus: document.getElementById('routeStatus'),
+      boatsContainer: document.getElementById('boatsContainer'),
+      progressTrack: document.getElementById('progressTrack'),
+      ainakolTime: document.getElementById('ainakolTime'),
+      bolektauTime: document.getElementById('bolektauTime'),
+      weatherIcon: document.getElementById('weatherIcon'),
+      weatherTemp: document.getElementById('weatherTemp'),
+      weatherDesc: document.getElementById('weatherDesc'),
+      weatherInfo: document.getElementById('weatherInfo'),
+      routeContainer: document.getElementById('routeContainer')
+    };
+
+    const schedule = [
+      { id: 1, depA: '09:00', arrB: '09:45', depB: '10:00', arrA: '10:45' },
+      { id: 2, depA: '09:30', arrB: '10:15', depB: '10:30', arrA: '11:15' },
+      { id: 3, depA: '10:00', arrB: '10:45', depB: '11:00', arrA: '11:45' },
+      { id: 4, depA: '10:30', arrB: '11:15', depB: '11:30', arrA: '12:15' },
+      { id: 5, depA: '11:00', arrB: '11:45', depB: '12:00', arrA: '12:45' },
+      { id: 6, depA: '11:30', arrB: '12:15', depB: '12:30', arrA: '13:15' },
+      { id: 7, depA: '12:00', arrB: '12:45', depB: '13:00', arrA: '13:45' },
+      { id: 8, depA: '12:30', arrB: '13:15', depB: '13:30', arrA: '14:15' },
+      { id: 9, depA: '13:00', arrB: '13:45', depB: '14:00', arrA: '14:45' },
+      { id: 10, depA: '13:30', arrB: '14:15', depB: '14:30', arrA: '15:15' }
+    ];
+
+    let currentWeather = { condition: 'clouds', temp: 18 };
+
+    function timeToMinutes(timeStr) {
+      const [h, m] = timeStr.split(':').map(Number);
+      return h * 60 + m;
+    }
+
+    function getCurrentMinutes() {
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    // Получаем текущий активный рейс (один корабль на полном маршруте)
+    function getCurrentRide(currentMin) {
+      for (let i = 0; i < schedule.length; i++) {
+        const item = schedule[i];
+        const depA = timeToMinutes(item.depA);
+        const arrA = timeToMinutes(item.arrA);
+        
+        // Корабль находится в пути от отправления до конечного прибытия
+        if (currentMin >= depA && currentMin < arrA) {
+          const arrB = timeToMinutes(item.arrB);
+          const depB = timeToMinutes(item.depB);
+          
+          let phase;
+          if (currentMin < arrB) {
+            phase = 'to-bolektau'; // Идем вперед
+          } else if (currentMin < depB) {
+            phase = 'stopped'; // Остановка в Бөлектау
+          } else {
+            phase = 'to-ainakol'; // Возвращаемся обратно
+          }
+          
+          return { index: i, phase, ride: item };
+        }
+      }
+      return null;
+    }
+
+    function createWeatherAnimation(condition) {
+      const old = DOM.weatherInfo.querySelector('[class*="anim-"]');
+      if (old) old.remove();
+      
+      if (condition === 'rain' || condition === 'drizzle') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-rain';
+        for (let i = 0; i < 12; i++) {
+          const d = document.createElement('div');
+          d.className = 'raindrop';
+          d.style.left = Math.random() * 100 + '%';
+          d.style.animationDuration = (0.6 + Math.random() * 0.6) + 's';
+          d.style.animationDelay = (Math.random() * 0.8) + 's';
+          anim.appendChild(d);
+        }
+        DOM.weatherInfo.appendChild(anim);
+      } else if (condition === 'snow') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-snow';
+        for (let i = 0; i < 10; i++) {
+          const f = document.createElement('span');
+          f.className = 'snowflake';
+          f.textContent = '❄';
+          f.style.left = Math.random() * 100 + '%';
+          f.style.fontSize = (6 + Math.random() * 8) + 'px';
+          f.style.animationDuration = (2 + Math.random() * 2) + 's';
+          f.style.animationDelay = (Math.random() * 2) + 's';
+          anim.appendChild(f);
+        }
+        DOM.weatherInfo.appendChild(anim);
+      } else if (condition === 'clear' || condition === 'sunny') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-sun';
+        const sun = document.createElement('div');
+        sun.className = 'sun-circle';
+        sun.style.top = '10px';
+        sun.style.left = '50%';
+        anim.appendChild(sun);
+        DOM.weatherInfo.appendChild(anim);
+      } else if (condition === 'clouds' || condition === 'overcast') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-cloud';
+        for (let i = 0; i < 3; i++) {
+          const c = document.createElement('div');
+          c.className = 'cloud-puff';
+          c.style.width = (20 + Math.random() * 25) + 'px';
+          c.style.height = (10 + Math.random() * 8) + 'px';
+          c.style.top = (20 + Math.random() * 40) + '%';
+          c.style.animationDuration = (3 + Math.random() * 3) + 's';
+          c.style.animationDelay = (i * 1.5) + 's';
+          anim.appendChild(c);
+        }
+        DOM.weatherInfo.appendChild(anim);
+      } else if (condition === 'fog' || condition === 'mist') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-fog';
+        for (let i = 0; i < 3; i++) {
+          const f = document.createElement('div');
+          f.className = 'fog-puff';
+          f.style.width = (30 + Math.random() * 20) + 'px';
+          f.style.height = '15px';
+          f.style.top = (20 + i * 25) + '%';
+          f.style.animationDuration = (4 + i * 2) + 's';
+          anim.appendChild(f);
+        }
+        DOM.weatherInfo.appendChild(anim);
+      } else if (condition === 'thunderstorm') {
+        const anim = document.createElement('div');
+        anim.className = 'anim-thunder';
+        const bolt = document.createElement('div');
+        bolt.className = 'bolt';
+        bolt.style.left = '40%';
+        bolt.style.top = '5px';
+        anim.appendChild(bolt);
+        for (let i = 0; i < 8; i++) {
+          const d = document.createElement('div');
+          d.className = 'raindrop';
+          d.style.left = Math.random() * 100 + '%';
+          d.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+          d.style.animationDelay = (Math.random() * 0.5) + 's';
+          anim.appendChild(d);
+        }
+        DOM.weatherInfo.appendChild(anim);
+      }
+    }
+
+    async function fetchWeather() {
+      try {
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=53.0833&longitude=70.3&current_weather=true&timezone=auto`
+        );
+        
+        if (!response.ok) throw new Error('Weather API error');
+        
+        const data = await response.json();
+        const weather = data.current_weather;
+        
+        let condition = 'clouds';
+        const code = weather.weathercode;
+        
+        if (code === 0) condition = 'clear';
+        else if (code === 1 || code === 2) condition = 'sunny';
+        else if (code === 3) condition = 'clouds';
+        else if (code === 45 || code === 48) condition = 'fog';
+        else if (code === 51 || code === 53 || code === 55) condition = 'drizzle';
+        else if (code === 61 || code === 63 || code === 65) condition = 'rain';
+        else if (code === 71 || code === 73 || code === 75) condition = 'snow';
+        else if (code === 80 || code === 81 || code === 82) condition = 'rain';
+        else if (code === 95 || code === 96 || code === 99) condition = 'thunderstorm';
+        
+        currentWeather = { condition, temp: Math.round(weather.temperature) };
+        
+        updateWeatherUI();
+        createWeatherAnimation(condition);
+        
+      } catch (error) {
+        console.warn('Weather fetch failed:', error);
+      }
+    }
+
+    function updateWeatherUI() {
+      const icons = {
+        clear: '☀️', sunny: '☀️', clouds: '☁️', overcast: '☁️',
+        rain: '🌧️', drizzle: '🌦️', snow: '❄️', fog: '🌫️',
+        mist: '🌫️', thunderstorm: '⛈️'
+      };
+      const desc = {
+        clear: 'Ясно', sunny: 'Солнечно', clouds: 'Облачно', overcast: 'Пасмурно',
+        rain: 'Дождь', drizzle: 'Морось', snow: 'Снег', fog: 'Туман',
+        mist: 'Дымка', thunderstorm: 'Гроза'
+      };
+      
+      DOM.weatherIcon.textContent = icons[currentWeather.condition] || '🌤️';
+      DOM.weatherTemp.textContent = `${currentWeather.temp}°C`;
+      DOM.weatherDesc.textContent = desc[currentWeather.condition] || 'Ясно';
+    }
+
+    function updateRouteAnimation(currentRide) {
+      const currentMin = getCurrentMinutes();
+      
+      if (!currentRide) {
+        DOM.routeStatus.textContent = '🕐 Нет активных рейсов';
+        DOM.progressTrack.style.width = '0%';
+        DOM.ainakolTime.textContent = '--:--';
+        DOM.bolektauTime.textContent = '--:--';
+        DOM.boatsContainer.innerHTML = '';
+        return;
+      }
+      
+      const { ride, phase } = currentRide;
+      DOM.ainakolTime.textContent = ride.depA;
+      DOM.bolektauTime.textContent = ride.arrB;
+      
+      const containerWidth = DOM.routeContainer.offsetWidth || 800;
+      const leftBoundary = LINE_LEFT_MARGIN;
+      const rightBoundary = containerWidth - LINE_RIGHT_MARGIN;
+      const totalTravelWidth = rightBoundary - leftBoundary;
+      
+      DOM.boatsContainer.innerHTML = '';
+      
+      const boatDiv = document.createElement('div');
+      
+      let posX;
+      let boatClass;
+      let statusText;
+      
+      if (phase === 'to-bolektau') {
+        const depA = timeToMinutes(ride.depA);
+        const elapsed = currentMin - depA;
+        const boatPosition = elapsed / TRAVEL_TIME;
+        posX = leftBoundary + (boatPosition * totalTravelWidth);
+        boatClass = 'boat-on-route forward';
+        statusText = `🛥️ Рейс #${ride.id}: Айнаколь → Бөлектау (${Math.round(elapsed)}/${TRAVEL_TIME} мин)`;
+        
+        const progressWidth = (elapsed / TRAVEL_TIME) * 100;
+        DOM.progressTrack.style.width = progressWidth + '%';
+        DOM.progressTrack.className = 'progress-track';
+      } else if (phase === 'stopped') {
+        const arrB = timeToMinutes(ride.arrB);
+        const elapsed = currentMin - arrB;
+        posX = rightBoundary;
+        boatClass = 'boat-on-route forward';
+        statusText = `⏸️ Рейс #${ride.id}: Остановка (${Math.round(elapsed)}/${STOP_TIME} мин)`;
+        
+        DOM.progressTrack.style.width = '100%';
+        DOM.progressTrack.className = 'progress-track';
+      } else {
+        const depB = timeToMinutes(ride.depB);
+        const elapsed = currentMin - depB;
+        const boatPosition = elapsed / TRAVEL_TIME;
+        posX = rightBoundary - (boatPosition * totalTravelWidth);
+        boatClass = 'boat-on-route return';
+        statusText = `🔄 Рейс #${ride.id}: Бөлектау → Айнаколь (${Math.round(elapsed)}/${TRAVEL_TIME} мин)`;
+        
+        DOM.progressTrack.style.width = '100%';
+        DOM.progressTrack.className = 'progress-track return';
+      }
+      
+      boatDiv.className = boatClass;
+      boatDiv.style.left = posX + 'px';
+      boatDiv.innerHTML = `<span class="boat-icon">🛥️</span><span class="boat-label">Рейс #${ride.id}</span>`;
+      DOM.boatsContainer.appendChild(boatDiv);
+      
+      DOM.routeStatus.textContent = statusText;
+    }
+
+    function renderTable(currentRide) {
+      DOM.tbody.innerHTML = '';
+      
+      schedule.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        
+        const isCurrent = currentRide && currentRide.index === index;
+        const phase = isCurrent ? currentRide.phase : null;
+        
+        tr.innerHTML = `
+          <td style="font-weight:700">${item.id}</td>
+          <td class="${isCurrent && (phase === 'to-bolektau' || phase === 'stopped') ? 'departure-ainakol' : ''}">${item.depA}</td>
+          <td class="${isCurrent && (phase === 'to-bolektau' || phase === 'stopped') ? 'arrival-bolektau' : ''}">${item.arrB}</td>
+          <td><span class="highlight-stop">⏸️ 15 мин</span></td>
+          <td class="${isCurrent && phase === 'to-ainakol' ? 'departure-bolektau' : ''}">${item.depB}</td>
+          <td class="${isCurrent && phase === 'to-ainakol' ? 'arrival-ainakol' : ''}">${item.arrA}</td>
+        `;
+        
+        if (isCurrent) {
+          tr.style.background = 'rgba(79, 195, 247, 0.1)';
+        }
+        
+        DOM.tbody.appendChild(tr);
+      });
+    }
+
+    function updateLastUpdatedTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('ru-RU', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+      
+      let lastUpdate = document.querySelector('.last-update');
+      if (!lastUpdate) {
+        lastUpdate = document.createElement('div');
+        lastUpdate.className = 'last-update';
+        document.querySelector('.card').appendChild(lastUpdate);
+      }
+      lastUpdate.textContent = `Обновлено: ${timeString}`;
+    }
+
+    function updateSchedule() {
+      const currentMin = getCurrentMinutes();
+      const currentRide = getCurrentRide(currentMin);
+      renderTable(currentRide);
+      updateRouteAnimation(currentRide);
+      updateLastUpdatedTime();
+    }
+
+    function init() {
+      fetchWeather();
+      updateSchedule();
+      setInterval(updateSchedule, 60000);
+      setInterval(fetchWeather, WEATHER_INTERVAL);
+    }
+
+    init();
+  })();
+</script>
+</body>
+</html>
